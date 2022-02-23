@@ -21,7 +21,7 @@ THE SOFTWARE.
 """
 from simple import Random
 from typing import Tuple
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 import args as arguments
 
 app = FastAPI()
@@ -44,3 +44,7 @@ def log(log: Tuple):
 def step(heads: Tuple[int, int]):
     return player.step(heads)
     
+
+@app.get('/healthcheck', status_code=status.HTTP_200_OK)
+def perform_healthcheck():
+    return {'healthcheck': 'Everything OK!'}
